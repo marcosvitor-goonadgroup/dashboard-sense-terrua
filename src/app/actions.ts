@@ -2,9 +2,28 @@
 
 import { redirect } from "next/navigation";
 
-import { autenticar, gravarSessao, limparSessao } from "@/lib/auth";
+import {
+  autenticar,
+  ErroConfiguracao,
+  gravarSessao,
+  limparSessao,
+  verificarConfiguracao,
+} from "@/lib/auth";
+import type { Sessao } from "@/lib/types";
 
 export type EstadoLogin = { erro?: string };
+
+const MSG_CONFIG =
+  "O acesso não está configurado no servidor. Fale com a administração — as variáveis de ambiente do dashboard precisam ser definidas.";
+
+/** Registra o motivo real no log do servidor, sem expô-lo na tela de login. */
+function registrarFalhaDeConfig(erro: unknown): void {
+  if (erro instanceof ErroConfiguracao) {
+    console.error(`[auth][config] ${erro.variavel} — ${erro.detalhe}`);
+  } else {
+    console.error("[auth][config] falha inesperada ao ler a configuração:", erro);
+  }
+}
 
 export async function entrar(_estado: EstadoLogin, dados: FormData): Promise<EstadoLogin> {
   const usuario = String(dados.get("usuario") ?? "").trim();
@@ -14,19 +33,29 @@ export async function entrar(_estado: EstadoLogin, dados: FormData): Promise<Est
     return { erro: "Informe usuário e senha." };
   }
 
-  let sessao: ReturnType<typeof autenticar>;
+  let sessao: Sessao | null;
   try {
+    // Valida AUTH_SECRET junto das contas: assim uma chave faltando aparece
+    // aqui, e não depois, na hora de assinar o cookie.
+    verificarConfiguracao();
     sessao = autenticar(usuario, senha);
   } catch (erro) {
-    console.error("[auth] configuração inválida:", erro);
-    return { erro: "O acesso não está configurado no servidor. Fale com a administração." };
+    registrarFalhaDeConfig(erro);
+    return { erro: MSG_CONFIG };
   }
 
   if (!sessao) {
     return { erro: "Usuário ou senha incorretos." };
   }
 
-  await gravarSessao(sessao);
+  try {
+    await gravarSessao(sessao);
+  } catch (erro) {
+    registrarFalhaDeConfig(erro);
+    return { erro: MSG_CONFIG };
+  }
+
+  // Fora do try: redirect sinaliza por exceção e não pode ser capturado acima.
   redirect("/dashboard");
 }
 

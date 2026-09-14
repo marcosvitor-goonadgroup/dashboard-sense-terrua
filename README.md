@@ -72,6 +72,28 @@ Um array JSON em uma única linha:
 redeploy. Nada mais precisa mudar — as seções, eventos e clientes são
 descobertos a partir dos próprios dados.
 
+### “O acesso não está configurado no servidor”
+
+Essa mensagem na tela de login significa **uma coisa só**: `DASHBOARD_USUARIOS`
+ou `AUTH_SECRET` está ausente ou malformada no ambiente. Não tem relação com a
+API de pesquisas — o dashboard busca os dados no servidor, então CORS nem entra
+na história.
+
+O motivo exato vai para o log do servidor (na Vercel: _Deployments → o deploy →
+Runtime Logs_), com o prefixo `[auth][config]`. Por exemplo:
+
+```
+[auth][config] DASHBOARD_USUARIOS — variável ausente ou vazia. Defina as contas
+[auth][config] DASHBOARD_USUARIOS — a conta "lego" tem escopo "matriz" e por isso precisa do campo "matriz".
+[auth][config] AUTH_SECRET — tem menos de 16 caracteres.
+```
+
+Ao definir a variável na Vercel, cole o JSON **em uma única linha**. O valor é
+tolerante a aspas sobrando em volta e a JSON gravado dentro de JSON, mas não a
+quebras de linha no meio do array. Lembre de marcar os três ambientes
+(Production, Preview, Development) e **refazer o deploy** — variáveis novas só
+valem para builds posteriores.
+
 ---
 
 ## Como os números são calculados
