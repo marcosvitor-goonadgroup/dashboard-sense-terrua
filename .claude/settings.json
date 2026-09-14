@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($r = Invoke-RestMethod -Uri \"https://api-rac-n-play.vercel.app/api/data/all?event=pesquisa\" -Method Get; $d = $r.tables.dados_respostas_pesquisas.data; Write-Output \"COUNT: $\\($d.Count\\)\"; Write-Output \"--- MATRIZES ---\"; $d | Group-Object matriz | ForEach-Object { \"$\\($_.Name\\) : $\\($_.Count\\)\" }; Write-Output \"--- EVENTOS ---\"; $d | Group-Object evento | ForEach-Object { \"$\\($_.Name\\) : $\\($_.Count\\)\" }; Write-Output \"--- SECOES ---\"; $d | Group-Object secao | ForEach-Object { \"$\\($_.Name\\) : $\\($_.Count\\)\" }; Write-Output \"--- STATUS ---\"; $d | Group-Object status_pesquisa | ForEach-Object { \"$\\($_.Name\\) : $\\($_.Count\\)\" }; Write-Output \"--- CLIENTES ---\"; $d | Group-Object cliente | ForEach-Object { \"$\\($_.Name\\) : $\\($_.Count\\)\" })",
+      "PowerShell($r = Invoke-RestMethod -Uri \"https://api-rac-n-play.vercel.app/api/data/all?event=pesquisa\" -Method Get; $d = $r.tables.dados_respostas_pesquisas.data; Write-Output \"--- CAMPOS ---\"; $d[0].PSObject.Properties.Name -join \", \"; Write-Output \"--- NOTAS ---\"; $d | Group-Object nota | Sort-Object Name | ForEach-Object { \"nota=$\\($_.Name\\) : $\\($_.Count\\)\" }; Write-Output \"--- NAO SE APLICA ---\"; $d | Group-Object secao_nao_se_aplica | ForEach-Object { \"$\\($_.Name\\) : $\\($_.Count\\)\" }; Write-Output \"--- JURIDICO PARTICIPOU ---\"; $d | Group-Object juridico_participou | ForEach-Object { \"[$\\($_.Name\\)] : $\\($_.Count\\)\" }; Write-Output \"--- GERENTES ---\"; $d | Group-Object gerente | ForEach-Object { \"$\\($_.Name\\) : $\\($_.Count\\)\" }; Write-Output \"--- ASSESSORES ---\"; $d | Group-Object assessor | ForEach-Object { \"$\\($_.Name\\) : $\\($_.Count\\)\" }; Write-Output \"--- COMENTARIOS ---\"; $d | Where-Object { $_.comentario_secao } | Select-Object evento, secao, comentario_secao -Unique | Format-Table -AutoSize | Out-String)",
+      "PowerShell(try { $a = Invoke-RestMethod -Uri \"https://api-rac-n-play.vercel.app/api/data/all\" -Method Get -TimeoutSec 30; Write-Output \"=== SEM EVENT PARAM ===\"; $a | ConvertTo-Json -Depth 2 -Compress | ForEach-Object { $_.Substring\\(0, [Math]::Min\\(2000, $_.Length\\)\\) } } catch { Write-Output \"ERRO: $\\($_.Exception.Message\\)\" })",
+      "PowerShell(Write-Output \"node: $\\(node -v 2>$null\\)\"; Write-Output \"npm: $\\(npm -v 2>$null\\)\")",
+      "PowerShell(node $s \"#C2732A,#2A6F9E,#1B8F6E,#6B4A87,#C0446B,#7A8C2E\" --mode light --surface \"#FFFFFF\")",
+      "PowerShell(node $s \"#C2732A,#2A6F9E,#1B8F6E,#6B4A87,#C0446B,#7A8C2E\" --mode light --surface \"#FFFFFF\" --pairs all)",
+      "PowerShell(node $s \"#F6D9B4,#EFBB7E,#E29A44,#C2732A,#96541B\" --mode light --surface \"#FFFFFF\" --ordinal)",
+      "PowerShell(node $s \"#B5322F,#E08583,#D6D3CC,#7FBF8A,#1B7F3B\" --mode light --surface \"#FFFFFF\" --pairs all)"
+    ]
+  }
+}
