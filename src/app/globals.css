@@ -1,26 +1,133 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   Sistema de design — Dashboard Sense Terruá
+   Paleta derivada da identidade Terruá e validada com o validador de paletas
+   (OKLab ΔE, simulação Machado-Oliveira-Fernandes 2009, severidade 1.0):
+
+   · Categórica (identidade de matriz)  → PASS all-pairs em 4 slots
+   · Divergente (notas 1–5 / Likert)    → PASS CVD ΔE 15.0 (deutan)
+   · Sequencial laranja (heatmap)       → lightness monotônica, hue spread 8°
+
+   A visão comprometeu-se com o modo claro (o site da Terruá é claro/laranja).
+   ========================================================================== */
+
+@theme {
+  /* — Marca — */
+  --color-terrua: #e08a3a; /* laranja do logo / UI */
+  --color-terrua-ink: #c2732a; /* laranja de marca em gráficos (≥3:1) */
+  --color-terrua-deep: #8a5316;
+  --color-terrua-tan: #c99155; /* faixa tan do site */
+  --color-terrua-plum: #4a2a4e;
+  --color-terrua-slate: #5b6c7d;
+
+  /* — Superfícies — */
+  --color-page: #faf7f2;
+  --color-surface: #ffffff;
+  --color-surface-2: #f6f1e9;
+  --color-surface-3: #efe7db;
+
+  /* — Tinta (texto). Texto nunca veste a cor do dado. — */
+  --color-ink-1: #1c1814;
+  --color-ink-2: #57514a;
+  --color-ink-3: #8a827a;
+
+  /* — Cromo de gráfico — */
+  --color-hairline: #e9e2d7;
+  --color-axis: #d8d0c4;
+
+  /* — Categórica: identidade de matriz (slots fixos, nunca ciclados) — */
+  --color-cat-1: #c2732a;
+  --color-cat-2: #2a78d6;
+  --color-cat-3: #1baf7a;
+  --color-cat-4: #e87ba4;
+
+  /* — Divergente: notas 1–5 centradas no neutro (3) — */
+  --color-div-1: #b5322f; /* nota 1 */
+  --color-div-2: #e0827f; /* nota 2 */
+  --color-div-3: #d6d3cc; /* nota 3 — cinza neutro, "nada" */
+  --color-div-4: #7fb2e8; /* nota 4 */
+  --color-div-5: #1c5cab; /* nota 5 */
+
+  /* — Sequencial laranja: magnitude (heatmap) — */
+  --color-seq-100: #fbeedc;
+  --color-seq-200: #f6dcb9;
+  --color-seq-300: #efc28c;
+  --color-seq-400: #e5a75f;
+  --color-seq-500: #d28a38;
+  --color-seq-600: #b06e24;
+  --color-seq-700: #8a5316;
+
+  /* — Status: reservado, sempre com ícone + rótulo, nunca cor sozinha — */
+  --color-status-good: #0ca30c;
+  --color-status-warning: #fab219;
+  --color-status-serious: #ec835a;
+  --color-status-critical: #d03b3b;
+
+  --font-sans: var(--font-figtree), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-card: 14px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --border: rgba(28, 24, 20, 0.1);
+  --border-strong: rgba(28, 24, 20, 0.18);
+  --shadow-card: 0 1px 2px rgba(28, 24, 20, 0.04), 0 1px 10px rgba(28, 24, 20, 0.03);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--color-page);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-page);
+  color: var(--color-ink-1);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Números em coluna alinham; números grandes usam figuras proporcionais. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Cartão base */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* Foco visível e consistente em toda a aplicação */
+:where(a, button, input, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-terrua-ink);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Refetch: segura o render anterior em opacidade reduzida, sem pulo de layout */
+.is-stale {
+  opacity: 0.55;
+  transition: opacity 160ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Canal de textura para forced-colors / impressão — nunca decorativo */
+@media print {
+  body {
+    background: #fff;
+  }
+  .no-print {
+    display: none !important;
+  }
 }

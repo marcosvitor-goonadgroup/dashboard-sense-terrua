@@ -8,7 +8,29 @@
       "PowerShell(node $s \"#C2732A,#2A6F9E,#1B8F6E,#6B4A87,#C0446B,#7A8C2E\" --mode light --surface \"#FFFFFF\")",
       "PowerShell(node $s \"#C2732A,#2A6F9E,#1B8F6E,#6B4A87,#C0446B,#7A8C2E\" --mode light --surface \"#FFFFFF\" --pairs all)",
       "PowerShell(node $s \"#F6D9B4,#EFBB7E,#E29A44,#C2732A,#96541B\" --mode light --surface \"#FFFFFF\" --ordinal)",
-      "PowerShell(node $s \"#B5322F,#E08583,#D6D3CC,#7FBF8A,#1B7F3B\" --mode light --surface \"#FFFFFF\" --pairs all)"
+      "PowerShell(node $s \"#B5322F,#E08583,#D6D3CC,#7FBF8A,#1B7F3B\" --mode light --surface \"#FFFFFF\" --pairs all)",
+      "PowerShell(node $s \"#C2732A,#2a78d6,#1baf7a,#e87ba4,#4a3aa7,#e34948\" --mode light --surface \"#FFFFFF\")",
+      "PowerShell(node $s \"#C2732A,#2a78d6,#1baf7a,#e87ba4,#4a3aa7,#e34948\" --mode light --surface \"#FFFFFF\" --pairs all)",
+      "PowerShell(node $s \"#C2732A,#2a78d6,#1baf7a,#e87ba4\" --mode light --surface \"#FFFFFF\" --pairs all)",
+      "PowerShell(node $s \"#B5322F,#E0827F,#7FB2E8,#1C5CAB\" --mode light --surface \"#FFFFFF\" --pairs all)",
+      "PowerShell(node $s \"#B5322F,#E0827F,#6FC2B0,#12806E\" --mode light --surface \"#FFFFFF\" --pairs all)",
+      "PowerShell(node $s \"#EFC28C,#E5A75F,#D28A38,#B06E24,#8A5316\" --mode light --surface \"#FFFFFF\" --ordinal)",
+      "PowerShell(node -e \"const c=require\\('crypto'\\);const p=n=>c.randomBytes\\(n\\).toString\\('base64url'\\).slice\\(0,n\\);console.log\\('SECRET='+c.randomBytes\\(32\\).toString\\('base64url'\\)\\);console.log\\('ADMIN='+p\\(14\\)\\);console.log\\('SEDE='+p\\(12\\)\\);console.log\\('LEGO='+p\\(12\\)\\);\")",
+      "PowerShell(npm install server-only --silent 2>&1 | Select-Object -Last 5; Write-Output \"exit=$LASTEXITCODE\")",
+      "PowerShell(npx tsc --noEmit -p tsconfig.json 2>&1 | Select-Object -First 40; Write-Output \"--- tsc exit=$LASTEXITCODE ---\")",
+      "PowerShell(npm run build 2>&1 | Select-Object -Last 60; Write-Output \"--- build exit=$LASTEXITCODE ---\")",
+      "PowerShell($p = \"$env:LOCALAPPDATA\\\\ms-playwright\"; if \\(Test-Path $p\\) { Write-Output \"playwright browsers: $\\(\\(Get-ChildItem $p | Select-Object -ExpandProperty Name\\) -join ', '\\)\" } else { Write-Output \"sem ms-playwright\" }; $chrome = @\\(\"$env:ProgramFiles\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe\",\"${env:ProgramFiles\\(x86\\)}\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe\",\"$env:LOCALAPPDATA\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe\",\"$env:ProgramFiles\\\\Microsoft\\\\Edge\\\\Application\\\\msedge.exe\",\"${env:ProgramFiles\\(x86\\)}\\\\Microsoft\\\\Edge\\\\Application\\\\msedge.exe\"\\) | Where-Object { Test-Path $_ }; Write-Output \"navegadores: $\\($chrome -join ' | '\\)\")",
+      "PowerShell(npm run dev 2>&1)",
+      "PowerShell($sp = \"C:\\\\Users\\\\marco\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-marco-OneDrive-Desktop-GOON-evento-rec-n-play-dashboard-sense-terrua\\\\80741405-7fae-4b24-a11c-c3c3bbd11b09\\\\scratchpad\\\\shots\"; New-Item -ItemType Directory -Force -Path $sp | Out-Null; Set-Location $sp; npm init -y --silent | Out-Null; npm install playwright --silent 2>&1 | Select-Object -Last 3; Write-Output \"exit=$LASTEXITCODE\")",
+      "PowerShell(npx tsc --noEmit -p tsconfig.json 2>&1 | Select-Object -First 25; Write-Output \"--- tsc exit=$LASTEXITCODE ---\")",
+      "PowerShell(npx tsc --noEmit -p tsconfig.json 2>&1 | Select-Object -First 20; Write-Output \"--- tsc exit=$LASTEXITCODE ---\"; $sp = \"C:\\\\Users\\\\marco\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-marco-OneDrive-Desktop-GOON-evento-rec-n-play-dashboard-sense-terrua\\\\80741405-7fae-4b24-a11c-c3c3bbd11b09\\\\scratchpad\\\\shots\"; Set-Location $sp; node shot.mjs 2>&1)",
+      "PowerShell(npm run lint 2>&1 | Select-Object -Last 25; Write-Output \"--- lint exit=$LASTEXITCODE ---\")",
+      "PowerShell(npm run lint 2>&1 | Select-Object -Last 10; Write-Output \"--- lint exit=$LASTEXITCODE ---\")",
+      "PowerShell(npm run build 2>&1 | Select-Object -Last 25; Write-Output \"--- build exit=$LASTEXITCODE ---\")",
+      "PowerShell(npx tsc --noEmit -p tsconfig.json 2>&1 | Select-Object -First 25; Write-Output \"--- tsc exit=$LASTEXITCODE ---\"; npm run lint 2>&1 | Select-Object -Last 12; Write-Output \"--- lint exit=$LASTEXITCODE ---\")",
+      "PowerShell(try { Stop-Process -Id 28644 -Force -ErrorAction Stop; Write-Output \"processo 28644 encerrado\" } catch { Write-Output \"ja encerrado: $\\($_.Exception.Message\\)\" }; Start-Sleep -Milliseconds 1200; $t = Test-NetConnection -ComputerName localhost -Port 3000 -WarningAction SilentlyContinue; Write-Output \"porta 3000 em uso: $\\($t.TcpTestSucceeded\\)\")",
+      "PowerShell(npx tsc --noEmit -p tsconfig.json 2>&1 | Select-Object -First 15; Write-Output \"--- tsc=$LASTEXITCODE ---\"; npm run lint 2>&1 | Select-Object -Last 8; Write-Output \"--- lint=$LASTEXITCODE ---\"; npm run build 2>&1 | Select-Object -Last 14; Write-Output \"--- build=$LASTEXITCODE ---\")",
+      "PowerShell($p = Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue; if \\($p\\) { $p | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }; Write-Output \"servidor encerrado\" } else { Write-Output \"porta 3000 livre\" })"
     ]
   }
 }
